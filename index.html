@@ -13,23 +13,25 @@
   <div id="app1">
     {{ message }}
   </div>
-  <div id="app2">
-    {{ message }}
-  </div>
+  <component uid="app2">
+  </component>
 </body>
 <script>
-  var app = new Vue({
+  window.app1 = new Vue({
     el: '#app1',
     data: {
       message: '1Hello Vue!'
     }
   })
-  var app = new Vue({
-    el: '#app2',
-    data: {
-      message: '2Hello Vue!'
+
+  const c1 = Vue.extend({
+    render (h) {
+      return h("h1", "hhhh")
     }
   })
+  window.app2 = new c1()
+  window.app2.$mount("component[uid='app2']")
+
 </script>
 
 </html>
