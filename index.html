@@ -7,6 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>demo</title>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+  <!-- <script src="https://requirejs.org/docs/release/2.3.6/minified/require.js"></script> -->
+  <script src="./build.js"></script>
 </head>
 
 <body>
@@ -14,6 +16,13 @@
     {{ message }}
   </div>
   <component uid="app2">
+  </component>
+
+  <component uid="app3">
+  </component>
+  <component uid="app4">
+  </component>
+  <component uid="app5">
   </component>
 </body>
 <script>
@@ -24,13 +33,30 @@
     }
   })
 
-  const c1 = Vue.extend({
-    render (h) {
+  const c2 = Vue.extend({
+    render(h) {
       return h("h1", "hhhh")
     }
   })
-  window.app2 = new c1()
+  window.app2 = new c2()
   window.app2.$mount("component[uid='app2']")
+
+  // es6 方式引用
+  import('./async.js').then((o) => {
+    const c3 = new (Vue.extend(o.default))
+    c3.$mount("component[uid='app3']")
+  })
+
+  // umd 引用 依赖 require.js
+  // require(["./build.js"],(a)=>{
+  //   const c4 = new (Vue.extend(a))
+  //   c4.$mount("component[uid='app4']")
+  // })
+
+  // script 标签方式引入
+  const c5 = Vue.extend(window.AB)
+  window.app5 = new c5()
+  window.app5.$mount("component[uid='app5']")
 
 </script>
 
