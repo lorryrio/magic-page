@@ -11,13 +11,19 @@
 </head>
 
 <body>
-  <component uid="app">
+  <component uid="app1">
+  </component>
+  <component uid="app2">
   </component>
 </body>
 <script>
   require(["./demo.umd.min.js"], (component) => {
     const c = new(Vue.extend(component.default.demo))
-    c.$mount("component[uid='app']")
+    c.$mount("component[uid='app1']")
+  })
+  require(["./demo.umd.min.js"], (component) => {
+    const c = new(Vue.extend(component.default.demo))
+    c.$mount("component[uid='app2']")
   })
 </script>
 
